@@ -332,8 +332,8 @@
     </div>
 
     <script>
-        // Status data configuration
-        const statusData = {
+        // Default status data configuration (fallback if status.json is not available)
+        let statusData = {
             overallStatus: 'operational', // operational, degraded, outage, maintenance
             services: [
                 { name: 'Web Application', status: 'operational' },
@@ -380,8 +380,25 @@
             outage: 'Outage'
         };
 
+        // Load status data from external JSON file
+        async function loadStatusData() {
+            try {
+                const response = await fetch('status.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    statusData = data;
+                    console.log('Status data loaded from status.json');
+                } else {
+                    console.log('Could not load status.json, using default data');
+                }
+            } catch (error) {
+                console.log('Could not load status.json, using default data:', error.message);
+            }
+        }
+
         // Initialize the page
-        function init() {
+        async function init() {
+            await loadStatusData();
             updateOverallStatus();
             renderServices();
             renderIncidents();
@@ -501,10 +518,13 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', init);
 
-        // Auto-refresh every 5 minutes (optional)
-        setInterval(() => {
+        // Auto-refresh every 5 minutes to check for status updates
+        setInterval(async () => {
+            await loadStatusData();
+            updateOverallStatus();
+            renderServices();
+            renderIncidents();
             updateTimestamp();
-            // In a real scenario, you might fetch fresh data here
         }, 300000);
     </script>
 </body>

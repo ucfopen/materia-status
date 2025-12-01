@@ -29,30 +29,39 @@ Your status page will be available at: `https://ucfopen.github.io/materia-status
 
 ## Updating Status
 
-### Method 1: Edit the HTML File Directly
+### Method 1: Edit the External JSON File (Recommended)
 
-Open `index.html` and modify the `statusData` object in the `<script>` section:
+The status page automatically loads data from `status.json`. To update the status:
+
+1. Edit `status.json` with your current status information
+2. Commit and push the changes to GitHub
+3. The page will automatically load the new data (refreshes every 5 minutes, or on page reload)
+
+Example `status.json`:
+```json
+{
+  "overallStatus": "operational",
+  "services": [
+    { "name": "Web Application", "status": "operational" }
+  ],
+  "incidents": []
+}
+```
+
+### Method 2: Edit the HTML File Directly (Fallback)
+
+If `status.json` is unavailable, the page uses default data embedded in `index.html`. You can modify the fallback `statusData` object in the `<script>` section:
 
 ```javascript
-const statusData = {
-    overallStatus: 'operational', // operational, degraded, outage, maintenance
+let statusData = {
+    overallStatus: 'operational',
     services: [
         { name: 'Web Application', status: 'operational' },
         // ... add or modify services
     ],
-    incidents: [
-        // Add incidents here
-    ]
+    incidents: []
 };
 ```
-
-### Method 2: Use the External JSON File (Future Enhancement)
-
-The `status.json` file can be used to manage status data separately. To enable this:
-
-1. Modify `index.html` to fetch data from `status.json`
-2. Update `status.json` with current status information
-3. Commit and push changes
 
 ### Status Values
 
