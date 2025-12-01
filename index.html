@@ -1,531 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Status updates for the UCF Materia application">
-    <title>Materia Status</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f7fa;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .status-banner {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #10b981;
-        }
-
-        .status-banner.degraded {
-            border-left-color: #f59e0b;
-        }
-
-        .status-banner.outage {
-            border-left-color: #ef4444;
-        }
-
-        .status-banner.maintenance {
-            border-left-color: #3b82f6;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-
-        .status-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #10b981;
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.degraded {
-            background-color: #f59e0b;
-        }
-
-        .status-dot.outage {
-            background-color: #ef4444;
-        }
-
-        .status-dot.maintenance {
-            background-color: #3b82f6;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        .status-title {
-            font-size: 1.8em;
-            font-weight: 600;
-        }
-
-        .status-description {
-            color: #666;
-            font-size: 1.1em;
-            margin-top: 10px;
-        }
-
-        .services-section {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .services-section h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #1f2937;
-        }
-
-        .service-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .service-item:last-child {
-            border-bottom: none;
-        }
-
-        .service-name {
-            font-weight: 500;
-            font-size: 1.1em;
-        }
-
-        .service-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95em;
-        }
-
-        .service-status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #10b981;
-        }
-
-        .service-status-dot.degraded {
-            background-color: #f59e0b;
-        }
-
-        .service-status-dot.outage {
-            background-color: #ef4444;
-        }
-
-        .incidents-section {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .incidents-section h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #1f2937;
-        }
-
-        .incident {
-            border-left: 4px solid #3b82f6;
-            padding: 15px;
-            margin-bottom: 20px;
-            background-color: #f9fafb;
-            border-radius: 4px;
-        }
-
-        .incident.resolved {
-            border-left-color: #10b981;
-        }
-
-        .incident.investigating {
-            border-left-color: #f59e0b;
-        }
-
-        .incident.critical {
-            border-left-color: #ef4444;
-        }
-
-        .incident-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .incident-title {
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-
-        .incident-status {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.85em;
-            font-weight: 500;
-            background-color: #3b82f6;
-            color: white;
-        }
-
-        .incident-status.resolved {
-            background-color: #10b981;
-        }
-
-        .incident-status.investigating {
-            background-color: #f59e0b;
-        }
-
-        .incident-status.critical {
-            background-color: #ef4444;
-        }
-
-        .incident-date {
-            color: #6b7280;
-            font-size: 0.9em;
-            margin-bottom: 8px;
-        }
-
-        .incident-description {
-            color: #4b5563;
-        }
-
-        .no-incidents {
-            text-align: center;
-            color: #6b7280;
-            padding: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #6b7280;
-            font-size: 0.9em;
-        }
-
-        footer a {
-            color: #667eea;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .last-updated {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 0.85em;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            .container {
-                padding: 10px;
-            }
-
-            .service-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Status updates for the UCF Materia application">
+	<title>Materia Status</title>
+	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Materia Status</h1>
-            <p>Current status and updates for the UCF Materia application</p>
-        </header>
+	<div class="container">
+		<header>
+			<h1>Materia Status</h1>
+			<p>Current status and updates for the UCF Materia application</p>
+		</header>
 
-        <div class="status-banner" id="mainStatus">
-            <div class="status-indicator">
-                <div class="status-dot" id="statusDot"></div>
-                <h2 class="status-title" id="statusTitle">All Systems Operational</h2>
-            </div>
-            <p class="status-description" id="statusDescription">All services are running normally.</p>
-        </div>
+		<div class="status-banner" id="mainStatus">
+			<div class="status-indicator">
+				<div class="status-dot" id="statusDot"></div>
+				<h2 class="status-title" id="statusTitle">All Systems Operational</h2>
+			</div>
+			<p class="status-description" id="statusDescription">All services are running normally.</p>
+		</div>
 
-        <div class="services-section">
-            <h2>Service Status</h2>
-            <div id="servicesList">
-                <!-- Services will be loaded here -->
-            </div>
-        </div>
+		<div class="services-section">
+			<h2>Service Status</h2>
+			<div id="servicesList">
+				<!-- Services will be loaded here -->
+			</div>
+		</div>
 
-        <div class="incidents-section">
-            <h2>Recent Incidents</h2>
-            <div id="incidentsList">
-                <p class="no-incidents">No recent incidents to report.</p>
-            </div>
-        </div>
+		<div class="incidents-section">
+			<h2>Recent Incidents</h2>
+			<div id="incidentsList">
+				<p class="no-incidents">No recent incidents to report.</p>
+			</div>
+		</div>
 
-        <div class="last-updated" id="lastUpdated">
-            Last updated: <span id="updateTime">Loading...</span>
-        </div>
+		<div class="last-updated" id="lastUpdated">
+			Last updated: <span id="updateTime">Loading...</span>
+		</div>
 
-        <footer>
-            <p>
-                Materia Status Page | 
-                <a href="https://github.com/ucfopen/Materia" target="_blank">Materia on GitHub</a> | 
-                <a href="https://ucfopen.github.io/Materia-Docs/" target="_blank">Documentation</a>
-            </p>
-        </footer>
-    </div>
+		<footer>
+			<p>
+				Materia Status Page | 
+				<a href="https://github.com/ucfopen/Materia" target="_blank">Materia on GitHub</a> | 
+				<a href="https://ucfopen.github.io/Materia-Docs/" target="_blank">Documentation</a>
+			</p>
+		</footer>
+	</div>
 
-    <script>
-        // Default status data configuration (fallback if status.json is not available)
-        let statusData = {
-            overallStatus: 'operational', // operational, degraded, outage, maintenance
-            services: [
-                { name: 'Web Application', status: 'operational' },
-                { name: 'Widget Engine', status: 'operational' },
-                { name: 'API Services', status: 'operational' },
-                { name: 'Database', status: 'operational' },
-                { name: 'Authentication', status: 'operational' }
-            ],
-            incidents: [
-                // Example incident structure (currently empty for operational status)
-                // {
-                //     title: 'Example Incident',
-                //     status: 'resolved', // resolved, investigating, monitoring, critical
-                //     date: '2025-11-30 14:30 UTC',
-                //     description: 'Brief description of the incident and resolution.'
-                // }
-            ]
-        };
+	<script>
+		// Default status data configuration (fallback if status.json is not available)
+		let statusData = {
+			overallStatus: 'operational', // operational, degraded, outage, maintenance
+			services: [
+				{ name: 'Web Application', status: 'operational' },
+				{ name: 'Widget Engine', status: 'operational' },
+				{ name: 'API Services', status: 'operational' },
+				{ name: 'Database', status: 'operational' },
+				{ name: 'Authentication', status: 'operational' }
+			],
+			incidents: [
+				// Example incident structure (currently empty for operational status)
+				// {
+				//     title: 'Example Incident',
+				//     status: 'resolved', // resolved, investigating, monitoring, critical
+				//     date: '2025-11-30 14:30 UTC',
+				//     description: 'Brief description of the incident and resolution.'
+				// }
+			]
+		};
 
-        // Status messages
-        const statusMessages = {
-            operational: {
-                title: 'All Systems Operational',
-                description: 'All services are running normally.'
-            },
-            degraded: {
-                title: 'Degraded Performance',
-                description: 'Some services are experiencing degraded performance.'
-            },
-            outage: {
-                title: 'Service Outage',
-                description: 'One or more services are currently unavailable.'
-            },
-            maintenance: {
-                title: 'Scheduled Maintenance',
-                description: 'Planned maintenance is in progress.'
-            }
-        };
+		// Status messages
+		const statusMessages = {
+			operational: {
+				title: 'All Systems Operational',
+				description: 'All services are running normally.'
+			},
+			degraded: {
+				title: 'Degraded Performance',
+				description: 'Some services are experiencing degraded performance.'
+			},
+			outage: {
+				title: 'Service Outage',
+				description: 'One or more services are currently unavailable.'
+			},
+			maintenance: {
+				title: 'Scheduled Maintenance',
+				description: 'Planned maintenance is in progress.'
+			}
+		};
 
-        // Status text labels
-        const statusLabels = {
-            operational: 'Operational',
-            degraded: 'Degraded',
-            outage: 'Outage'
-        };
+		// Status text labels
+		const statusLabels = {
+			operational: 'Operational',
+			degraded: 'Degraded',
+			outage: 'Outage'
+		};
 
-        // Load status data from external JSON file
-        async function loadStatusData() {
-            try {
-                const response = await fetch('status.json');
-                if (response.ok) {
-                    const data = await response.json();
-                    statusData = data;
-                    console.log('Status data loaded from status.json');
-                } else {
-                    console.log('Could not load status.json, using default data');
-                }
-            } catch (error) {
-                console.log('Could not load status.json, using default data:', error.message);
-            }
-        }
+		// Load status data from external JSON file
+		async function loadStatusData() {
+			try {
+				const response = await fetch('status.json');
+				if (response.ok) {
+					const data = await response.json();
+					statusData = data;
+					console.log('Status data loaded from status.json');
+				} else {
+					console.log('Could not load status.json, using default data');
+				}
+			} catch (error) {
+				console.log('Could not load status.json, using default data:', error.message);
+			}
+		}
 
-        // Initialize the page
-        async function init() {
-            await loadStatusData();
-            updateOverallStatus();
-            renderServices();
-            renderIncidents();
-            updateTimestamp();
-        }
+		// Initialize the page
+		async function init() {
+			await loadStatusData();
+			updateOverallStatus();
+			renderServices();
+			renderIncidents();
+			updateTimestamp();
+		}
 
-        // Update overall status banner
-        function updateOverallStatus() {
-            const banner = document.getElementById('mainStatus');
-            const dot = document.getElementById('statusDot');
-            const title = document.getElementById('statusTitle');
-            const description = document.getElementById('statusDescription');
+		// Update overall status banner
+		function updateOverallStatus() {
+			const banner = document.getElementById('mainStatus');
+			const dot = document.getElementById('statusDot');
+			const title = document.getElementById('statusTitle');
+			const description = document.getElementById('statusDescription');
 
-            const status = statusData.overallStatus;
-            const message = statusMessages[status];
+			const status = statusData.overallStatus;
+			const message = statusMessages[status];
 
-            // Update classes
-            banner.className = 'status-banner ' + status;
-            dot.className = 'status-dot ' + status;
+			// Update classes
+			banner.className = 'status-banner ' + status;
+			dot.className = 'status-dot ' + status;
 
-            // Update text
-            title.textContent = message.title;
-            description.textContent = message.description;
-        }
+			// Update text
+			title.textContent = message.title;
+			description.textContent = message.description;
+		}
 
-        // Render services list
-        function renderServices() {
-            const servicesList = document.getElementById('servicesList');
-            servicesList.innerHTML = '';
+		// Render services list
+		function renderServices() {
+			const servicesList = document.getElementById('servicesList');
+			servicesList.innerHTML = '';
 
-            statusData.services.forEach(service => {
-                const serviceItem = document.createElement('div');
-                serviceItem.className = 'service-item';
+			statusData.services.forEach(service => {
+				const serviceItem = document.createElement('div');
+				serviceItem.className = 'service-item';
 
-                const serviceName = document.createElement('span');
-                serviceName.className = 'service-name';
-                serviceName.textContent = service.name;
+				const serviceName = document.createElement('span');
+				serviceName.className = 'service-name';
+				serviceName.textContent = service.name;
 
-                const serviceStatus = document.createElement('div');
-                serviceStatus.className = 'service-status';
+				const serviceStatus = document.createElement('div');
+				serviceStatus.className = 'service-status';
 
-                const statusDot = document.createElement('span');
-                statusDot.className = 'service-status-dot ' + service.status;
+				const statusDot = document.createElement('span');
+				statusDot.className = 'service-status-dot ' + service.status;
 
-                const statusText = document.createElement('span');
-                statusText.textContent = statusLabels[service.status] || service.status;
+				const statusText = document.createElement('span');
+				statusText.textContent = statusLabels[service.status] || service.status;
 
-                serviceStatus.appendChild(statusDot);
-                serviceStatus.appendChild(statusText);
+				serviceStatus.appendChild(statusDot);
+				serviceStatus.appendChild(statusText);
 
-                serviceItem.appendChild(serviceName);
-                serviceItem.appendChild(serviceStatus);
+				serviceItem.appendChild(serviceName);
+				serviceItem.appendChild(serviceStatus);
 
-                servicesList.appendChild(serviceItem);
-            });
-        }
+				servicesList.appendChild(serviceItem);
+			});
+		}
 
-        // Render incidents list
-        function renderIncidents() {
-            const incidentsList = document.getElementById('incidentsList');
+		// Render incidents list
+		function renderIncidents() {
+			const incidentsList = document.getElementById('incidentsList');
 
-            if (statusData.incidents.length === 0) {
-                incidentsList.innerHTML = '<p class="no-incidents">No recent incidents to report.</p>';
-                return;
-            }
+			if (statusData.incidents.length === 0) {
+				incidentsList.innerHTML = '<p class="no-incidents">No recent incidents to report.</p>';
+				return;
+			}
 
-            incidentsList.innerHTML = '';
+			incidentsList.innerHTML = '';
 
-            statusData.incidents.forEach(incident => {
-                const incidentDiv = document.createElement('div');
-                incidentDiv.className = 'incident ' + incident.status;
+			statusData.incidents.forEach(incident => {
+				const incidentDiv = document.createElement('div');
+				incidentDiv.className = 'incident ' + incident.status;
 
-                const header = document.createElement('div');
-                header.className = 'incident-header';
+				const header = document.createElement('div');
+				header.className = 'incident-header';
 
-                const title = document.createElement('div');
-                title.className = 'incident-title';
-                title.textContent = incident.title;
+				const title = document.createElement('div');
+				title.className = 'incident-title';
+				title.textContent = incident.title;
 
-                const status = document.createElement('span');
-                status.className = 'incident-status ' + incident.status;
-                status.textContent = incident.status.charAt(0).toUpperCase() + incident.status.slice(1);
+				const status = document.createElement('span');
+				status.className = 'incident-status ' + incident.status;
+				status.textContent = incident.status.charAt(0).toUpperCase() + incident.status.slice(1);
 
-                header.appendChild(title);
-                header.appendChild(status);
+				header.appendChild(title);
+				header.appendChild(status);
 
-                const date = document.createElement('div');
-                date.className = 'incident-date';
-                date.textContent = incident.date;
+				const date = document.createElement('div');
+				date.className = 'incident-date';
+				date.textContent = incident.date;
 
-                const description = document.createElement('p');
-                description.className = 'incident-description';
-                description.textContent = incident.description;
+				const description = document.createElement('p');
+				description.className = 'incident-description';
+				description.textContent = incident.description;
 
-                incidentDiv.appendChild(header);
-                incidentDiv.appendChild(date);
-                incidentDiv.appendChild(description);
+				incidentDiv.appendChild(header);
+				incidentDiv.appendChild(date);
+				incidentDiv.appendChild(description);
 
-                incidentsList.appendChild(incidentDiv);
-            });
-        }
+				incidentsList.appendChild(incidentDiv);
+			});
+		}
 
-        // Update timestamp
-        function updateTimestamp() {
-            const updateTime = document.getElementById('updateTime');
-            const now = new Date();
-            updateTime.textContent = now.toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                timeZoneName: 'short'
-            });
-        }
+		// Update timestamp
+		function updateTimestamp() {
+			const updateTime = document.getElementById('updateTime');
+			const now = new Date();
+			updateTime.textContent = now.toLocaleString('en-US', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				hour: '2-digit',
+				minute: '2-digit',
+				timeZoneName: 'short'
+			});
+		}
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', init);
+		// Initialize on page load
+		document.addEventListener('DOMContentLoaded', init);
 
-        // Auto-refresh every 5 minutes to check for status updates
-        setInterval(async () => {
-            await loadStatusData();
-            updateOverallStatus();
-            renderServices();
-            renderIncidents();
-            updateTimestamp();
-        }, 300000);
-    </script>
+		// Auto-refresh every 5 minutes to check for status updates
+		setInterval(async () => {
+			await loadStatusData();
+			updateOverallStatus();
+			renderServices();
+			renderIncidents();
+			updateTimestamp();
+		}, 300000);
+	</script>
 </body>
 </html>
