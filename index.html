@@ -11,7 +11,7 @@
 	<div class="container">
 		<header>
 			<h1>Materia Status</h1>
-			<p>Current status and updates for the UCF Materia application</p>
+			<p>Current status and updates for Materia at UCF.</p>
 		</header>
 
 		<div class="status-banner" id="mainStatus">
@@ -23,17 +23,17 @@
 		</div>
 
 		<div class="maintenance-summary-section">
-			<h2>Maintenance Schedule</h2>
+			<h2>Upcoming Maintenance on December 12, 2025:</h2>
 			<p>
-				Materia undergoes routine maintenance to ensure optimal performance and security. 
-				Scheduled maintenance windows are typically announced at least 48 hours in advance. 
-				During maintenance, you may experience brief service interruptions. We appreciate 
-				your patience as we work to keep Materia running smoothly.
+				Materia will be down for extended maintenance starting on Friday, December 12, 2025. We anticipate the system will be back up and running by Tuesday, December 17. During downtime,
+				the application and all associated widgets will be unavailable on both materia.ucf.edu and Webcourses.
 			</p>
+			<h3>What's happening?</h3>
 			<p>
-				For the most current maintenance information, please check this page or subscribe 
-				to our notifications.
+				The downtime is associated with our newest update, which addresses a big pile of technical debt we've accumulated since the system was launched in 2012. Some of the key changes include
+				 a complete rewrite of our server backend from PHP to Python and Django and transitioning from LTI 1.1 to 1.3. LTI is the specification we use to communicate with Learning Management Systems such as Webcourses.
 			</p>
+			<p>For more information, check our FAQ below. We will update this page with status updates associated with the downtime.</p>
 		</div>
 
 		<div class="maintenance-section" id="maintenanceSection" style="display: none;">
@@ -189,7 +189,7 @@
 
 				const answer = document.createElement('div');
 				answer.className = 'faq-answer';
-				answer.textContent = item.answer;
+				answer.innerHTML = item.answer;
 
 				faqItem.appendChild(question);
 				faqItem.appendChild(answer);

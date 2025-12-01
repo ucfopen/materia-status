@@ -1,19 +1,23 @@
 {
-  "overallStatus": "operational",
-  "statusMessage": "All services are running normally.",
-  "maintenanceUpdates": [],
-  "faq": [
-    {
-      "question": "What is Materia?",
-      "answer": "Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets."
-    },
-    {
-      "question": "How do I report an issue?",
-      "answer": "Please contact support through your institution's help desk or email support@materia.ucf.edu."
-    },
-    {
-      "question": "Where can I find documentation?",
-      "answer": "Full documentation is available at https://ucfopen.github.io/Materia-Docs/"
-    }
-  ]
+	"overallStatus": "operational",
+	"statusMessage": "All services are running normally.",
+	"maintenanceUpdates": [],
+	"faq": [
+		{
+			"question": "Will faculty have to do anything in Materia when you're done?",
+			"answer": "No - or at least, almost nothing. Everything you've done and created in Materia - widgets, play sessions, scores, uploaded images - will be right where you left them. All of your assignments in Webcourses will still function just as before. However, if you previously enabled Materia in your course navigation, you will need to re-enable it. This is because Canvas treats LTI 1.1 and 1.3 integrations as separate tools, and we can't automatically replace the old version with the new one in your course navigation."
+		},
+		{
+			"question": "What's changing for faculty and students?",
+			"answer": "Lots of things! But most of them are invisible. We've taken the opportunity to address a whole host of small issues across the platform, and we have some more really exciting updates on the way. This update is mostly foundational: by addressing a lot of our technical debt and constraints, we've created a solid footing for the next 10+ years of Materia."
+		},
+		{
+			"question": "What do I do if I find an issue?",
+			"answer": "An update this large is bound to have a few bugs: we're a small team working on a really big codebase. If you find something, reach out to <a href='https://cdl.ucf.edu/support/' target='_blank'>Webcourses Support</a> and let them know, and we'll work on fixing it ASAP."
+		},
+		{
+			"question": "Several days of downtime? Really?",
+			"answer": "Materia is pretty popular at UCF - which means a lot of data - which means our database is getting pretty big. Addressing scale remains one of our top priorities for the near future, but in the meantime, the duration of downtime is largely associated with migrating data and validating it to make sure everything checks out."
+		} 
+	]
 }
