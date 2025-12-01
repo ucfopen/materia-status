@@ -9,8 +9,8 @@ This is a single-page static status site that provides real-time information abo
 ## Features
 
 - 🟢 Real-time status indicator for overall system health
-- 📊 Individual service status monitoring
-- 📝 Incident history and updates
+- 📝 Maintenance and outage updates section (displayed only when needed)
+- ❓ Frequently Asked Questions (FAQ) section
 - 📱 Responsive design for mobile and desktop
 - ⚡ Fast, lightweight, and self-contained
 - 🎨 Clean, professional interface
@@ -41,10 +41,14 @@ Example `status.json`:
 ```json
 {
   "overallStatus": "operational",
-  "services": [
-    { "name": "Web Application", "status": "operational" }
-  ],
-  "incidents": []
+  "statusMessage": "All services are running normally.",
+  "maintenanceUpdates": [],
+  "faq": [
+    {
+      "question": "What is Materia?",
+      "answer": "Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets."
+    }
+  ]
 }
 ```
 
@@ -55,44 +59,83 @@ If `status.json` is unavailable, the page uses default data embedded in `index.h
 ```javascript
 let statusData = {
     overallStatus: 'operational',
-    services: [
-        { name: 'Web Application', status: 'operational' },
-        // ... add or modify services
-    ],
-    incidents: []
+    statusMessage: 'All services are running normally.',
+    maintenanceUpdates: [],
+    faq: [...]
 };
 ```
 
-### Status Values
+### JSON Structure
 
-**Overall Status:**
-- `operational` - All systems running normally
-- `degraded` - Some services experiencing issues
-- `outage` - Major service disruption
-- `maintenance` - Scheduled maintenance in progress
+**Required Fields:**
 
-**Service Status:**
-- `operational` - Service is running normally
-- `degraded` - Service is experiencing issues
-- `outage` - Service is unavailable
+- `overallStatus` (string): Current system status
+  - `operational` - All systems running normally (green indicator)
+  - `degraded` - Some services experiencing issues (amber indicator)
+  - `outage` - Major service disruption (red indicator)
+  - `maintenance` - Scheduled maintenance in progress (blue indicator)
 
-**Incident Status:**
-- `resolved` - Incident has been resolved
-- `investigating` - Team is investigating
-- `monitoring` - Issue is being monitored
-- `critical` - Critical incident in progress
+- `statusMessage` (string): Brief description of the current status (displayed prominently below the status indicator)
 
-## Example: Adding an Incident
+- `maintenanceUpdates` (array): List of timestamped updates about maintenance or outages
+  - Only displayed when the array is not empty
+  - Each update has:
+    - `date` (string): Timestamp (e.g., "2025-12-01 20:00 UTC")
+    - `message` (string): Update message
 
-```javascript
-incidents: [
+- `faq` (array): Frequently asked questions
+  - Each FAQ item has:
+    - `question` (string): The question
+    - `answer` (string): The answer
+
+### Example: Maintenance Mode
+
+```json
+{
+  "overallStatus": "maintenance",
+  "statusMessage": "Scheduled maintenance is currently in progress.",
+  "maintenanceUpdates": [
     {
-        title: 'Database Performance Issues',
-        status: 'resolved',
-        date: '2025-12-01 14:30 UTC',
-        description: 'We experienced temporary database performance degradation. The issue has been resolved and all services are operating normally.'
+      "date": "2025-12-01 20:30 UTC",
+      "message": "Maintenance is proceeding as planned. Services remain available but may experience brief interruptions."
+    },
+    {
+      "date": "2025-12-01 20:00 UTC",
+      "message": "Scheduled maintenance window: 8:00 PM to 11:00 PM UTC."
     }
-]
+  ],
+  "faq": [
+    {
+      "question": "When will maintenance be complete?",
+      "answer": "Maintenance is expected to complete by 11:00 PM UTC."
+    }
+  ]
+}
+```
+
+### Example: Outage
+
+```json
+{
+  "overallStatus": "outage",
+  "statusMessage": "Materia is currently unavailable. Our team is actively working to restore service.",
+  "maintenanceUpdates": [
+    {
+      "date": "2025-12-01 15:30 UTC",
+      "message": "Update: We have identified the cause and are implementing a fix. Service should be restored within the hour."
+    },
+    {
+      "date": "2025-12-01 15:00 UTC",
+      "message": "Initial report: The application is currently unavailable. Our team is investigating."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How can I stay updated?",
+      "answer": "This page will be updated as we learn more. Please refresh periodically for the latest information."
+    }
+  ]
+}
 ```
 
 ## Local Development
@@ -116,7 +159,11 @@ The status page uses color coding:
 - 🔵 Blue (#3b82f6) - Maintenance/Info
 
 ### Styling
-All CSS is embedded in `index.html` for easy customization. Look for the `<style>` section to modify colors, fonts, or layout.
+All CSS is in `styles.css` for easy customization. Modify colors, fonts, or layout as needed.
+
+## Examples
+
+See `status-examples.json` for complete examples of different status scenarios.
 
 ## License
 
