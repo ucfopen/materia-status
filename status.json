@@ -1,0 +1,26 @@
+{
+  "overallStatus": "operational",
+  "services": [
+    {
+      "name": "Web Application",
+      "status": "operational"
+    },
+    {
+      "name": "Widget Engine",
+      "status": "operational"
+    },
+    {
+      "name": "API Services",
+      "status": "operational"
+    },
+    {
+      "name": "Database",
+      "status": "operational"
+    },
+    {
+      "name": "Authentication",
+      "status": "operational"
+    }
+  ],
+  "incidents": []
+}
