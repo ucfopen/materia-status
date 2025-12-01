@@ -22,17 +22,17 @@
 			<p class="status-description" id="statusDescription">All services are running normally.</p>
 		</div>
 
-		<div class="services-section">
-			<h2>Service Status</h2>
-			<div id="servicesList">
-				<!-- Services will be loaded here -->
+		<div class="maintenance-section" id="maintenanceSection" style="display: none;">
+			<h2>Updates</h2>
+			<div id="maintenanceList">
+				<!-- Maintenance updates will be loaded here -->
 			</div>
 		</div>
 
-		<div class="incidents-section">
-			<h2>Recent Incidents</h2>
-			<div id="incidentsList">
-				<p class="no-incidents">No recent incidents to report.</p>
+		<div class="faq-section">
+			<h2>Frequently Asked Questions</h2>
+			<div id="faqList">
+				<!-- FAQ items will be loaded here -->
 			</div>
 		</div>
 
@@ -53,49 +53,30 @@
 		// Default status data configuration (fallback if status.json is not available)
 		let statusData = {
 			overallStatus: 'operational', // operational, degraded, outage, maintenance
-			services: [
-				{ name: 'Web Application', status: 'operational' },
-				{ name: 'Widget Engine', status: 'operational' },
-				{ name: 'API Services', status: 'operational' },
-				{ name: 'Database', status: 'operational' },
-				{ name: 'Authentication', status: 'operational' }
-			],
-			incidents: [
-				// Example incident structure (currently empty for operational status)
-				// {
-				//     title: 'Example Incident',
-				//     status: 'resolved', // resolved, investigating, monitoring, critical
-				//     date: '2025-11-30 14:30 UTC',
-				//     description: 'Brief description of the incident and resolution.'
-				// }
+			statusMessage: 'All services are running normally.',
+			maintenanceUpdates: [],
+			faq: [
+				{
+					question: 'What is Materia?',
+					answer: 'Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets.'
+				},
+				{
+					question: 'How do I report an issue?',
+					answer: 'Please contact support through your institution\'s help desk or email support@materia.ucf.edu.'
+				},
+				{
+					question: 'Where can I find documentation?',
+					answer: 'Full documentation is available at https://ucfopen.github.io/Materia-Docs/'
+				}
 			]
 		};
 
-		// Status messages
-		const statusMessages = {
-			operational: {
-				title: 'All Systems Operational',
-				description: 'All services are running normally.'
-			},
-			degraded: {
-				title: 'Degraded Performance',
-				description: 'Some services are experiencing degraded performance.'
-			},
-			outage: {
-				title: 'Service Outage',
-				description: 'One or more services are currently unavailable.'
-			},
-			maintenance: {
-				title: 'Scheduled Maintenance',
-				description: 'Planned maintenance is in progress.'
-			}
-		};
-
-		// Status text labels
-		const statusLabels = {
-			operational: 'Operational',
-			degraded: 'Degraded',
-			outage: 'Outage'
+		// Status titles
+		const statusTitles = {
+			operational: 'All Systems Operational',
+			degraded: 'Degraded Performance',
+			outage: 'Service Outage',
+			maintenance: 'Scheduled Maintenance'
 		};
 
 		// Load status data from external JSON file
@@ -118,8 +99,8 @@
 		async function init() {
 			await loadStatusData();
 			updateOverallStatus();
-			renderServices();
-			renderIncidents();
+			renderMaintenanceUpdates();
+			renderFAQ();
 			updateTimestamp();
 		}
 
@@ -131,91 +112,75 @@
 			const description = document.getElementById('statusDescription');
 
 			const status = statusData.overallStatus;
-			const message = statusMessages[status];
+			const statusTitle = statusTitles[status] || 'Status Unknown';
 
 			// Update classes
 			banner.className = 'status-banner ' + status;
 			dot.className = 'status-dot ' + status;
 
 			// Update text
-			title.textContent = message.title;
-			description.textContent = message.description;
+			title.textContent = statusTitle;
+			description.textContent = statusData.statusMessage || 'Status information unavailable.';
 		}
 
-		// Render services list
-		function renderServices() {
-			const servicesList = document.getElementById('servicesList');
-			servicesList.innerHTML = '';
+		// Render maintenance updates
+		function renderMaintenanceUpdates() {
+			const maintenanceSection = document.getElementById('maintenanceSection');
+			const maintenanceList = document.getElementById('maintenanceList');
 
-			statusData.services.forEach(service => {
-				const serviceItem = document.createElement('div');
-				serviceItem.className = 'service-item';
-
-				const serviceName = document.createElement('span');
-				serviceName.className = 'service-name';
-				serviceName.textContent = service.name;
-
-				const serviceStatus = document.createElement('div');
-				serviceStatus.className = 'service-status';
-
-				const statusDot = document.createElement('span');
-				statusDot.className = 'service-status-dot ' + service.status;
-
-				const statusText = document.createElement('span');
-				statusText.textContent = statusLabels[service.status] || service.status;
-
-				serviceStatus.appendChild(statusDot);
-				serviceStatus.appendChild(statusText);
-
-				serviceItem.appendChild(serviceName);
-				serviceItem.appendChild(serviceStatus);
-
-				servicesList.appendChild(serviceItem);
-			});
-		}
-
-		// Render incidents list
-		function renderIncidents() {
-			const incidentsList = document.getElementById('incidentsList');
-
-			if (statusData.incidents.length === 0) {
-				incidentsList.innerHTML = '<p class="no-incidents">No recent incidents to report.</p>';
+			if (!statusData.maintenanceUpdates || statusData.maintenanceUpdates.length === 0) {
+				maintenanceSection.style.display = 'none';
 				return;
 			}
 
-			incidentsList.innerHTML = '';
+			maintenanceSection.style.display = 'block';
+			maintenanceList.innerHTML = '';
 
-			statusData.incidents.forEach(incident => {
-				const incidentDiv = document.createElement('div');
-				incidentDiv.className = 'incident ' + incident.status;
-
-				const header = document.createElement('div');
-				header.className = 'incident-header';
-
-				const title = document.createElement('div');
-				title.className = 'incident-title';
-				title.textContent = incident.title;
-
-				const status = document.createElement('span');
-				status.className = 'incident-status ' + incident.status;
-				status.textContent = incident.status.charAt(0).toUpperCase() + incident.status.slice(1);
-
-				header.appendChild(title);
-				header.appendChild(status);
+			statusData.maintenanceUpdates.forEach(update => {
+				const updateDiv = document.createElement('div');
+				updateDiv.className = 'maintenance-update';
 
 				const date = document.createElement('div');
-				date.className = 'incident-date';
-				date.textContent = incident.date;
+				date.className = 'update-date';
+				date.textContent = update.date;
 
-				const description = document.createElement('p');
-				description.className = 'incident-description';
-				description.textContent = incident.description;
+				const message = document.createElement('p');
+				message.className = 'update-message';
+				message.textContent = update.message;
 
-				incidentDiv.appendChild(header);
-				incidentDiv.appendChild(date);
-				incidentDiv.appendChild(description);
+				updateDiv.appendChild(date);
+				updateDiv.appendChild(message);
 
-				incidentsList.appendChild(incidentDiv);
+				maintenanceList.appendChild(updateDiv);
+			});
+		}
+
+		// Render FAQ items
+		function renderFAQ() {
+			const faqList = document.getElementById('faqList');
+			faqList.innerHTML = '';
+
+			if (!statusData.faq || statusData.faq.length === 0) {
+				faqList.innerHTML = '<p class="no-faq">No FAQ items available.</p>';
+				return;
+			}
+
+			statusData.faq.forEach(item => {
+				const faqItem = document.createElement('div');
+				faqItem.className = 'faq-item';
+
+				const question = document.createElement('div');
+				question.className = 'faq-question';
+				question.textContent = item.question;
+
+				const answer = document.createElement('div');
+				answer.className = 'faq-answer';
+				answer.textContent = item.answer;
+
+				faqItem.appendChild(question);
+				faqItem.appendChild(answer);
+
+				faqList.appendChild(faqItem);
 			});
 		}
 
@@ -240,8 +205,8 @@
 		setInterval(async () => {
 			await loadStatusData();
 			updateOverallStatus();
-			renderServices();
-			renderIncidents();
+			renderMaintenanceUpdates();
+			renderFAQ();
 			updateTimestamp();
 		}, 300000);
 	</script>

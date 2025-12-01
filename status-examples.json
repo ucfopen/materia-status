@@ -4,33 +4,39 @@
       "description": "All systems running normally",
       "data": {
         "overallStatus": "operational",
-        "services": [
-          { "name": "Web Application", "status": "operational" },
-          { "name": "Widget Engine", "status": "operational" },
-          { "name": "API Services", "status": "operational" },
-          { "name": "Database", "status": "operational" },
-          { "name": "Authentication", "status": "operational" }
-        ],
-        "incidents": []
+        "statusMessage": "All services are running normally.",
+        "maintenanceUpdates": [],
+        "faq": [
+          {
+            "question": "What is Materia?",
+            "answer": "Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets."
+          },
+          {
+            "question": "How do I report an issue?",
+            "answer": "Please contact support through your institution's help desk or email support@materia.ucf.edu."
+          }
+        ]
       }
     },
     "degraded": {
       "description": "Some services experiencing issues",
       "data": {
         "overallStatus": "degraded",
-        "services": [
-          { "name": "Web Application", "status": "operational" },
-          { "name": "Widget Engine", "status": "degraded" },
-          { "name": "API Services", "status": "operational" },
-          { "name": "Database", "status": "operational" },
-          { "name": "Authentication", "status": "operational" }
-        ],
-        "incidents": [
+        "statusMessage": "We are experiencing some performance issues. Services remain available but may be slower than usual.",
+        "maintenanceUpdates": [
           {
-            "title": "Widget Engine Performance Degradation",
-            "status": "investigating",
             "date": "2025-12-01 14:30 UTC",
-            "description": "We are investigating reports of slower than normal widget loading times. The service remains available but may experience delays."
+            "message": "Our team is investigating reports of slower than normal widget loading times. Services remain available but may experience delays."
+          }
+        ],
+        "faq": [
+          {
+            "question": "What is Materia?",
+            "answer": "Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets."
+          },
+          {
+            "question": "How do I report an issue?",
+            "answer": "Please contact support through your institution's help desk or email support@materia.ucf.edu."
           }
         ]
       }
@@ -39,19 +45,25 @@
       "description": "Major service disruption",
       "data": {
         "overallStatus": "outage",
-        "services": [
-          { "name": "Web Application", "status": "outage" },
-          { "name": "Widget Engine", "status": "outage" },
-          { "name": "API Services", "status": "operational" },
-          { "name": "Database", "status": "operational" },
-          { "name": "Authentication", "status": "operational" }
-        ],
-        "incidents": [
+        "statusMessage": "Materia is currently unavailable. Our team is actively working to restore service.",
+        "maintenanceUpdates": [
           {
-            "title": "Web Application Unavailable",
-            "status": "critical",
+            "date": "2025-12-01 15:30 UTC",
+            "message": "Update: We have identified the cause of the outage and are implementing a fix. Service should be restored within the hour."
+          },
+          {
             "date": "2025-12-01 15:00 UTC",
-            "description": "The web application is currently unavailable. Our team is actively working to restore service. We will provide updates as we learn more."
+            "message": "Initial report: The application is currently unavailable. Our team is investigating the cause."
+          }
+        ],
+        "faq": [
+          {
+            "question": "What is Materia?",
+            "answer": "Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets."
+          },
+          {
+            "question": "How do I report an issue?",
+            "answer": "Please contact support through your institution's help desk or email support@materia.ucf.edu."
           }
         ]
       }
@@ -60,40 +72,25 @@
       "description": "Scheduled maintenance in progress",
       "data": {
         "overallStatus": "maintenance",
-        "services": [
-          { "name": "Web Application", "status": "operational" },
-          { "name": "Widget Engine", "status": "operational" },
-          { "name": "API Services", "status": "operational" },
-          { "name": "Database", "status": "operational" },
-          { "name": "Authentication", "status": "operational" }
-        ],
-        "incidents": [
+        "statusMessage": "Scheduled maintenance is currently in progress.",
+        "maintenanceUpdates": [
           {
-            "title": "Scheduled Database Maintenance",
-            "status": "monitoring",
             "date": "2025-12-01 20:00 UTC",
-            "description": "We are performing scheduled database maintenance. Services remain available but you may experience brief interruptions during this window."
-          }
-        ]
-      }
-    },
-    "resolved_incident": {
-      "description": "Incident that has been resolved",
-      "data": {
-        "overallStatus": "operational",
-        "services": [
-          { "name": "Web Application", "status": "operational" },
-          { "name": "Widget Engine", "status": "operational" },
-          { "name": "API Services", "status": "operational" },
-          { "name": "Database", "status": "operational" },
-          { "name": "Authentication", "status": "operational" }
-        ],
-        "incidents": [
+            "message": "We are performing scheduled database maintenance. Services remain available but you may experience brief interruptions during this window."
+          },
           {
-            "title": "Database Connection Issues",
-            "status": "resolved",
-            "date": "2025-11-30 10:15 UTC",
-            "description": "We experienced temporary database connection issues that affected all services. The issue was resolved by restarting the connection pool. All services are now operating normally."
+            "date": "2025-12-01 10:00 UTC",
+            "message": "Scheduled maintenance window: Sunday, December 1, 2025 from 8:00 PM to 11:00 PM UTC. Services may be briefly unavailable during this time."
+          }
+        ],
+        "faq": [
+          {
+            "question": "What is Materia?",
+            "answer": "Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets."
+          },
+          {
+            "question": "How do I report an issue?",
+            "answer": "Please contact support through your institution's help desk or email support@materia.ucf.edu."
           }
         ]
       }

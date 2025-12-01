@@ -1,26 +1,19 @@
 {
   "overallStatus": "operational",
-  "services": [
+  "statusMessage": "All services are running normally.",
+  "maintenanceUpdates": [],
+  "faq": [
     {
-      "name": "Web Application",
-      "status": "operational"
+      "question": "What is Materia?",
+      "answer": "Materia is a learning tool creation platform used at UCF to create and deploy interactive learning widgets."
     },
     {
-      "name": "Widget Engine",
-      "status": "operational"
+      "question": "How do I report an issue?",
+      "answer": "Please contact support through your institution's help desk or email support@materia.ucf.edu."
     },
     {
-      "name": "API Services",
-      "status": "operational"
-    },
-    {
-      "name": "Database",
-      "status": "operational"
-    },
-    {
-      "name": "Authentication",
-      "status": "operational"
+      "question": "Where can I find documentation?",
+      "answer": "Full documentation is available at https://ucfopen.github.io/Materia-Docs/"
     }
-  ],
-  "incidents": []
+  ]
 }

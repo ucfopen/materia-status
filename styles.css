@@ -105,7 +105,7 @@ header p {
 	margin-top: 10px;
 }
 
-.services-section {
+.maintenance-section {
 	background-color: #fff;
 	border-radius: 8px;
 	padding: 25px;
@@ -113,66 +113,13 @@ header p {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.services-section h2 {
+.maintenance-section h2 {
 	font-size: 1.5em;
 	margin-bottom: 20px;
 	color: #1f2937;
 }
 
-.service-item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 15px;
-	border-bottom: 1px solid #e5e7eb;
-}
-
-.service-item:last-child {
-	border-bottom: none;
-}
-
-.service-name {
-	font-weight: 500;
-	font-size: 1.1em;
-}
-
-.service-status {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	font-size: 0.95em;
-}
-
-.service-status-dot {
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background-color: #10b981;
-}
-
-.service-status-dot.degraded {
-	background-color: #f59e0b;
-}
-
-.service-status-dot.outage {
-	background-color: #ef4444;
-}
-
-.incidents-section {
-	background-color: #fff;
-	border-radius: 8px;
-	padding: 25px;
-	margin-bottom: 30px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.incidents-section h2 {
-	font-size: 1.5em;
-	margin-bottom: 20px;
-	color: #1f2937;
-}
-
-.incident {
+.maintenance-update {
 	border-left: 4px solid #3b82f6;
 	padding: 15px;
 	margin-bottom: 20px;
@@ -180,62 +127,61 @@ header p {
 	border-radius: 4px;
 }
 
-.incident.resolved {
-	border-left-color: #10b981;
+.maintenance-update:last-child {
+	margin-bottom: 0;
 }
 
-.incident.investigating {
-	border-left-color: #f59e0b;
-}
-
-.incident.critical {
-	border-left-color: #ef4444;
-}
-
-.incident-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10px;
-}
-
-.incident-title {
-	font-weight: 600;
-	font-size: 1.1em;
-}
-
-.incident-status {
-	padding: 4px 12px;
-	border-radius: 12px;
-	font-size: 0.85em;
-	font-weight: 500;
-	background-color: #3b82f6;
-	color: white;
-}
-
-.incident-status.resolved {
-	background-color: #10b981;
-}
-
-.incident-status.investigating {
-	background-color: #f59e0b;
-}
-
-.incident-status.critical {
-	background-color: #ef4444;
-}
-
-.incident-date {
+.update-date {
 	color: #6b7280;
 	font-size: 0.9em;
 	margin-bottom: 8px;
+	font-weight: 500;
 }
 
-.incident-description {
+.update-message {
 	color: #4b5563;
+	line-height: 1.6;
 }
 
-.no-incidents {
+.faq-section {
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 25px;
+	margin-bottom: 30px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq-section h2 {
+	font-size: 1.5em;
+	margin-bottom: 20px;
+	color: #1f2937;
+}
+
+.faq-item {
+	margin-bottom: 25px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.faq-item:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.faq-question {
+	font-weight: 600;
+	font-size: 1.1em;
+	color: #1f2937;
+	margin-bottom: 10px;
+}
+
+.faq-answer {
+	color: #4b5563;
+	line-height: 1.6;
+}
+
+.no-faq {
 	text-align: center;
 	color: #6b7280;
 	padding: 20px;
@@ -273,9 +219,11 @@ footer a:hover {
 		padding: 10px;
 	}
 
-	.service-item {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 10px;
+	.status-title {
+		font-size: 1.4em;
+	}
+
+	.faq-question {
+		font-size: 1em;
 	}
 }
