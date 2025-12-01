@@ -49,11 +49,6 @@
 				<!-- FAQ items will be loaded here -->
 			</div>
 		</div>
-
-		<div class="last-updated" id="lastUpdated">
-			Last updated: <span id="updateTime">Loading...</span>
-		</div>
-
 		<footer>
 			<p>
 				Materia Status Page | 
@@ -115,7 +110,6 @@
 			updateOverallStatus();
 			renderMaintenanceUpdates();
 			renderFAQ();
-			updateTimestamp();
 		}
 
 		// Update overall status banner
@@ -198,20 +192,6 @@
 			});
 		}
 
-		// Update timestamp
-		function updateTimestamp() {
-			const updateTime = document.getElementById('updateTime');
-			const now = new Date();
-			updateTime.textContent = now.toLocaleString('en-US', {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric',
-				hour: '2-digit',
-				minute: '2-digit',
-				timeZoneName: 'short'
-			});
-		}
-
 		// Initialize on page load
 		document.addEventListener('DOMContentLoaded', init);
 
@@ -221,7 +201,6 @@
 			updateOverallStatus();
 			renderMaintenanceUpdates();
 			renderFAQ();
-			updateTimestamp();
 		}, 300000);
 	</script>
 </body>
