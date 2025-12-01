@@ -1,0 +1,102 @@
+{
+  "examples": {
+    "operational": {
+      "description": "All systems running normally",
+      "data": {
+        "overallStatus": "operational",
+        "services": [
+          { "name": "Web Application", "status": "operational" },
+          { "name": "Widget Engine", "status": "operational" },
+          { "name": "API Services", "status": "operational" },
+          { "name": "Database", "status": "operational" },
+          { "name": "Authentication", "status": "operational" }
+        ],
+        "incidents": []
+      }
+    },
+    "degraded": {
+      "description": "Some services experiencing issues",
+      "data": {
+        "overallStatus": "degraded",
+        "services": [
+          { "name": "Web Application", "status": "operational" },
+          { "name": "Widget Engine", "status": "degraded" },
+          { "name": "API Services", "status": "operational" },
+          { "name": "Database", "status": "operational" },
+          { "name": "Authentication", "status": "operational" }
+        ],
+        "incidents": [
+          {
+            "title": "Widget Engine Performance Degradation",
+            "status": "investigating",
+            "date": "2025-12-01 14:30 UTC",
+            "description": "We are investigating reports of slower than normal widget loading times. The service remains available but may experience delays."
+          }
+        ]
+      }
+    },
+    "outage": {
+      "description": "Major service disruption",
+      "data": {
+        "overallStatus": "outage",
+        "services": [
+          { "name": "Web Application", "status": "outage" },
+          { "name": "Widget Engine", "status": "outage" },
+          { "name": "API Services", "status": "operational" },
+          { "name": "Database", "status": "operational" },
+          { "name": "Authentication", "status": "operational" }
+        ],
+        "incidents": [
+          {
+            "title": "Web Application Unavailable",
+            "status": "critical",
+            "date": "2025-12-01 15:00 UTC",
+            "description": "The web application is currently unavailable. Our team is actively working to restore service. We will provide updates as we learn more."
+          }
+        ]
+      }
+    },
+    "maintenance": {
+      "description": "Scheduled maintenance in progress",
+      "data": {
+        "overallStatus": "maintenance",
+        "services": [
+          { "name": "Web Application", "status": "operational" },
+          { "name": "Widget Engine", "status": "operational" },
+          { "name": "API Services", "status": "operational" },
+          { "name": "Database", "status": "operational" },
+          { "name": "Authentication", "status": "operational" }
+        ],
+        "incidents": [
+          {
+            "title": "Scheduled Database Maintenance",
+            "status": "monitoring",
+            "date": "2025-12-01 20:00 UTC",
+            "description": "We are performing scheduled database maintenance. Services remain available but you may experience brief interruptions during this window."
+          }
+        ]
+      }
+    },
+    "resolved_incident": {
+      "description": "Incident that has been resolved",
+      "data": {
+        "overallStatus": "operational",
+        "services": [
+          { "name": "Web Application", "status": "operational" },
+          { "name": "Widget Engine", "status": "operational" },
+          { "name": "API Services", "status": "operational" },
+          { "name": "Database", "status": "operational" },
+          { "name": "Authentication", "status": "operational" }
+        ],
+        "incidents": [
+          {
+            "title": "Database Connection Issues",
+            "status": "resolved",
+            "date": "2025-11-30 10:15 UTC",
+            "description": "We experienced temporary database connection issues that affected all services. The issue was resolved by restarting the connection pool. All services are now operating normally."
+          }
+        ]
+      }
+    }
+  }
+}

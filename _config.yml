@@ -1,0 +1,22 @@
+# GitHub Pages Configuration for Materia Status
+# This file ensures proper Jekyll configuration for GitHub Pages
+
+# Site settings
+title: Materia Status
+description: Status updates for the UCF Materia application
+baseurl: "" # Leave empty if using root domain
+url: "https://ucfopen.github.io/materia-status"
+
+# Build settings
+# Exclude unnecessary files from the built site
+exclude:
+  - README.md
+  - LICENSE
+  - status-examples.json
+  - .git
+  - .gitignore
+
+# Include important files
+include:
+  - index.html
+  - status.json
