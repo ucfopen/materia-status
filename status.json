@@ -13,7 +13,7 @@
 		},
 		{
 			"question": "What do I do if I find an issue?",
-			"answer": "An update this large is bound to have a few bugs: we're a small team working on a really big codebase. If you find something, reach out to <a href='https://cdl.ucf.edu/support/' target='_blank'>Webcourses Support</a> and let them know, and we'll work on fixing it ASAP."
+			"answer": "We do our best to find, track, and fix bugs, but this is a really big update! If you find something, reach out to <a href='https://cdl.ucf.edu/support/' target='_blank'>Webcourses Support</a> and let them know, and we'll work on fixing it ASAP."
 		},
 		{
 			"question": "Several days of downtime? Really?",
